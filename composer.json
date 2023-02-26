@@ -1,0 +1,50 @@
+{
+    "name": "iogravity/json-dump",
+    "description": "Whether you're a developer or not, Json Dump makes storing and manipulating json data effortless.",
+    "keywords": [
+        "iogravity",
+        "json-dump"
+    ],
+    "homepage": "https://github.com/iogravity/json-dump",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Iogravity",
+            "email": "hello@iogravity.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=7.2",
+        "guzzlehttp/guzzle": "^7.5"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5",
+        "laravel/pint": "^1.2"
+    },
+    "autoload": {
+        "files": ["src/functions.php"],
+        "psr-4": {
+            "JsonDump\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "JsonDump\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+            "test-coverage": "vendor/bin/phpunit --coverage",
+        "format": "vendor/bin/pint"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            
+            "phpstan/extension-installer": true
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
