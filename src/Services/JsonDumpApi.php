@@ -67,11 +67,12 @@ class JsonDumpApi
      * @param string $json
      * @return Dump
      */
-    public function create(string $json)
+    public function create(string $json, string $name)
     {
         try {
             $json = json_decode($json, 1);
             $request['json'] = $json;
+            $request['name'] = $name;
             $response = $this->client->request('POST', "dumps", [
                 'body' => json_encode($request),
             ])->getBody()->getContents();

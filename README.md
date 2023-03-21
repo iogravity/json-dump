@@ -25,7 +25,7 @@ composer require iogravity/json-dump
 
 ```php
 $dump = JsonDump\JsonDumpClient::init($secret);
-$dump->create(json_encode(["hello" => "Iogravity"]);
+$dump->create(json_encode(["hello" => "Iogravity"], "json_one");
 ```
 
 ## Testing
