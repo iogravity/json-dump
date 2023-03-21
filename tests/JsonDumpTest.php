@@ -18,6 +18,7 @@ class JsonDumpTest extends TestCase
     {
         $response = $this->jsonDump->create(json_encode(["test" => "tt"]), "json_one");
         $this->assertTrue($response->isError === false);
+
         return $response->data['id'];
     }
 
