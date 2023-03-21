@@ -56,9 +56,9 @@ class JsonDumpClient
      * @param string $json
      * @return Dump
      */
-    public function create(string $json)
+    public function create(string $json, string $name)
     {
-        return $this->jsonDumpApi->create($json);
+        return $this->jsonDumpApi->create($json, $name);
     }
 
     /**

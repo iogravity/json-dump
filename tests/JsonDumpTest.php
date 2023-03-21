@@ -11,12 +11,12 @@ class JsonDumpTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->jsonDump = JsonDumpClient::init('4f0d681ce19c6c3e2c595ed0d90eb809');
+        $this->jsonDump = JsonDumpClient::init('');
     }
 
     public function testCreateDumpSuccess()
     {
-        $response = $this->jsonDump->create(json_encode(["test" => "tt"]));
+        $response = $this->jsonDump->create(json_encode(["test" => "tt"]), "json_one");
         $this->assertTrue($response->isError === false);
 
         return $response->data['id'];
@@ -24,7 +24,7 @@ class JsonDumpTest extends TestCase
 
     public function testCreateDumpFailure()
     {
-        $response = $this->jsonDump->create(json_encode([]));
+        $response = $this->jsonDump->create(json_encode([]), "json_one");
 
         $this->assertTrue($response->isError === true);
     }
