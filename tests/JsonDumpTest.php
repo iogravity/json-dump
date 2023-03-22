@@ -11,19 +11,29 @@ class JsonDumpTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->jsonDump = JsonDumpClient::init('');
+        $this->jsonDump = JsonDumpClient::init('####SECRET_KEY####');
     }
 
     public function testCreateDumpSuccess()
     {
         $response = $this->jsonDump->create(json_encode(["test" => "tt"]), "json_one");
         $this->assertTrue($response->isError === false);
-        return $response->data['id'];
+        return $response->data['name'];
     }
 
     public function testCreateDumpFailure()
     {
         $response = $this->jsonDump->create(json_encode([]), "json_one");
+
+        $this->assertTrue($response->isError === true);
+    }
+
+    /**
+     * @depends testCreateDumpSuccess
+     */
+    public function testCreateDumpWithSameNameFailure($name)
+    {
+        $response = $this->jsonDump->create(json_encode([]), $name);
 
         $this->assertTrue($response->isError === true);
     }
@@ -72,6 +82,17 @@ class JsonDumpTest extends TestCase
      * @depends testUpdateDumpSuccess
      * @depends testFindDumpSuccess
      */
+    public function testUpdatedDumpNameSuccess($id)
+    {
+        $response = $this->jsonDump->update(json_encode(["test" => "updated2"]), $id, 'json_two');
+        $this->assertTrue($response->isError === false);
+        $this->assertTrue($response->data['name'] === 'json_two');
+        return $response->data['name'];
+    }
+
+    /**
+     * @depends testUpdatedDumpNameSuccess
+     */
     public function testDeleteDumpSuccess($id)
     {
         $response = $this->jsonDump->delete($id);
@@ -83,4 +104,5 @@ class JsonDumpTest extends TestCase
         $response = $this->jsonDump->delete(99999999999999999);
         $this->assertTrue($response->isError === true);
     }
+
 }

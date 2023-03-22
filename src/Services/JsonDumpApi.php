@@ -47,13 +47,13 @@ class JsonDumpApi
     /**
      * Find a dump by id
      *
-     * @param int $id
+     * @param int|string $identifier
      * @return Dump
      */
-    public function find(int $id)
+    public function find($identifier)
     {
         try {
-            $response = $this->client->request('GET', "dumps/{$id}")->getBody()->getContents();
+            $response = $this->client->request('GET', "dumps/{$identifier}")->getBody()->getContents();
 
             return Dump::fetch($response);
         } catch (ClientException $e) {
@@ -65,6 +65,7 @@ class JsonDumpApi
      * Create a dump
      *
      * @param string $json
+     * @param string $name
      * @return Dump
      */
     public function create(string $json, string $name)
@@ -87,15 +88,20 @@ class JsonDumpApi
      * Update a dump
      *
      * @param string $json
-     * @param int $id
+     * @param int|string $identifier
+     * @param string|null $updateName
      * @return Dump
      */
-    public function update(string $json, int $id)
+    public function update(string $json, $identifier, string $updateName = null)
     {
         try {
+
             $json = json_decode($json, 1);
             $request['json'] = $json;
-            $response = $this->client->request('PUT', "dumps/{$id}", [
+            if ($updateName) {
+                $request['name'] = $updateName;
+            }
+            $response = $this->client->request('PUT', "dumps/{$identifier}", [
                 'body' => json_encode($request),
             ])->getBody()->getContents();
 
@@ -108,13 +114,13 @@ class JsonDumpApi
     /**
      * Delete a dump
      *
-     * @param int $id
+     * @param int|string $identifier
      * @return Dump
      */
-    public function delete(int $id)
+    public function delete($identifier)
     {
         try {
-            $response = $this->client->request('DELETE', "dumps/{$id}")->getBody()->getContents();
+            $response = $this->client->request('DELETE', "dumps/{$identifier}")->getBody()->getContents();
 
             return Dump::fetch($response);
         } catch (ClientException $e) {
