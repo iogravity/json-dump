@@ -95,7 +95,6 @@ class JsonDumpApi
     public function update(string $json, $identifier, string $updateName = null)
     {
         try {
-
             $json = json_decode($json, 1);
             $request['json'] = $json;
             if ($updateName) {

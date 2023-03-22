@@ -18,6 +18,7 @@ class JsonDumpTest extends TestCase
     {
         $response = $this->jsonDump->create(json_encode(["test" => "tt"]), "json_one");
         $this->assertTrue($response->isError === false);
+
         return $response->data['name'];
     }
 
@@ -87,6 +88,7 @@ class JsonDumpTest extends TestCase
         $response = $this->jsonDump->update(json_encode(["test" => "updated2"]), $id, 'json_two');
         $this->assertTrue($response->isError === false);
         $this->assertTrue($response->data['name'] === 'json_two');
+
         return $response->data['name'];
     }
 
@@ -104,5 +106,4 @@ class JsonDumpTest extends TestCase
         $response = $this->jsonDump->delete(99999999999999999);
         $this->assertTrue($response->isError === true);
     }
-
 }
